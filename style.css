@@ -5,6 +5,9 @@ h1{
 }
 
 pre{
-    background-color: rgb(175, 175, 175);
+    background-color: rgb(242, 242, 242);
+    box-shadow: 10px 10px 10px rgb(77, 77, 77);
     padding: 20px;
+    border-radius: 30px;
+    margin: 20px;
 }
