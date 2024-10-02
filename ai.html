@@ -1,0 +1,133 @@
+<style>
+    h1{
+        text-transform: uppercase;
+    }
+</style>
+
+
+<h1>Water Jug</h1>
+<p><pre><code>
+from collections import deque
+
+def solution(a, b, target):
+    visited, q, path = set(), deque([(0, 0)]), []
+
+    while q:
+        x, y = q.popleft()
+        
+        if (x, y) in visited:
+            continue
+        
+        visited.add((x, y))
+        path.append((x, y))
+
+        if x == target or y == target:
+            if x == target and y != 0:
+                path.append((x, 0))
+            if y == target and x != 0:
+                path.append((0, y))
+            for p in path:  # Changed to a regular for loop
+                print(f"({p[0]},{p[1]})")
+            return
+
+        q.extend([  # Corrected from q.extend9
+            (x, b),              # Fill jug b
+            (a, y),              # Fill jug a
+            (0, y),              # Empty jug a
+            (x, 0),              # Empty jug b
+            (x + min(y, a - x), y - min(y, a - x)),  # Pour from y to x
+            (x - min(x, b - y), y + min(x, b - y))   # Pour from x to y
+        ])
+
+    print("NO solution")  # Moved outside of while loop
+
+if __name__ == "__main__":  # Corrected indentation
+    solution(4, 3, 2)
+
+       
+</code></pre></p>
+
+
+<h1>Sales man</h1>
+<p><pre><code>
+import queue as Q
+
+def search(graph, start, end):
+    if start not in graph or end not in graph:
+        raise ValueError(f"Invalid nodes: {start} or {end} not found in graph!")
+
+    queue = Q.PriorityQueue()
+    queue.put((0, [start]))
+
+    while queue:
+        cost, path = queue.get()
+        if path[-1] == end:
+            print(f"Path found: {path}, Cost = {cost}")
+            return
+        for neighbor, distance in graph[path[-1]].items():
+            queue.put((cost + distance, path + [neighbor]))
+
+def readGraph():
+    graph = {}
+    for _ in range(int(input("Enter the number of lines: "))):
+        tokens = input().split()
+        node = tokens[0]
+        graph[node] = {tokens[i]: int(tokens[i + 1]) for i in range(1, len(tokens), 2)}
+    return graph
+
+def main():
+    graph = readGraph()
+    search(graph, 'Arad', 'Bucharest')
+
+if __name__ == "__main__":
+    main()
+
+</code></pre></p>
+
+
+
+<h1>BFS</h1>    
+
+<p><pre><code>
+
+def bfs(graph, start):
+    visited, queue = [], [start]
+    
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            visited.append(node)
+            print(node, end=" ")
+            queue.extend(neighbour for neighbour in graph[node] if neighbour not in visited)
+
+# Define the tree structure
+tree = {
+    '5': ['3', '7'],
+    '3': ['2', '4'],
+    '7': ['8'],
+    '2': [],
+    '4': ['8'],
+    '8': []
+}
+
+print("Following is the Breadth-First Search:")
+bfs(tree, '5')
+
+</code></pre></p>
+
+
+
+<h1>dfs</h1>
+<p><pre><code>
+tree = {'5': ['3', '7'], '3': ['2', '4'], '7': ['8'], '2': [], '4': ['8'], '8': []}
+
+def dfs (visited , node):
+    if node not in visited:
+        print(node , end="")
+        visited.add(node)
+        for n in tree[node]:
+            dfs(visited , n)
+
+print("dfs")
+dfs(set() ,'5')
+</code></pre></p>
